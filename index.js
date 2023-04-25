@@ -29,7 +29,11 @@ function drawRectangle() {
   middle();
   topAndBottom();
 }
-
+if (userColor === 'red') {
+  hexCode = '#b72d42';
+  color = chalk.hex(hexCode);
+  drawRectangle();
+}
 if (userColor && !luminosity) {
   const finalColor = userColor;
   hexCode = toHex(finalColor);
