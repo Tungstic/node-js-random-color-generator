@@ -2,8 +2,10 @@ import chalk from 'chalk';
 import randomColor from 'randomcolor';
 
 // Get random hex code and its color
-const hexCode = randomColor();
+let hexCode = randomColor();
 const color = chalk.hex(hexCode);
+
+const userColor = process.argv[2];
 
 // Hardcode rectangle because neither canvas nor gm library helped me draw it
 function topAndBottom() {
@@ -19,10 +21,10 @@ function middle() {
   console.log(color('#####                     #####'));
 }
 
-function drawRectangle() {
-  topAndBottom();
-  middle();
-  topAndBottom();
-}
+/*
+Problem with this code is that userColor 'blue' as a string is not the exact match for hex code of randomColor({hue: 'blue'})
 
-drawRectangle();
+console.log(randomColor({ hue: userColor }))
+
+So, user needs to put in a hex code to get a requested color
+*/
