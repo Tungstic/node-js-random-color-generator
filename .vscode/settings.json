@@ -1,4 +1,4 @@
 {
   "css.lint.unknownAtRules": "ignore",
-  "cSpell.words": ["randomcolor"]
+  "cSpell.words": ["colornames", "randomcolor"]
 }
