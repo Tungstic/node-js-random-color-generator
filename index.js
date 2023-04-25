@@ -10,21 +10,6 @@ let color = chalk.hex(hexCode);
 const userColor = process.argv[2];
 const luminosity = process.argv[3];
 
-if (userColor && !luminosity) {
-  const finalColor = userColor;
-  hexCode = toHex(finalColor);
-  color = chalk.hex(hexCode);
-  drawRectangle();
-} else if (userColor && luminosity) {
-  const finalColor = luminosity + userColor;
-  // console.log(finalColor);
-  hexCode = toHex(finalColor);
-  color = chalk.hex(hexCode);
-  drawRectangle();
-} else {
-  drawRectangle();
-}
-
 // Hardcode rectangle because neither canvas nor gm library helped me draw it
 function topAndBottom() {
   const times = 3;
@@ -45,10 +30,17 @@ function drawRectangle() {
   topAndBottom();
 }
 
-/*
-Problem with this code is that userColor 'blue' as a string is not the exact match for hex code of randomColor({hue: 'blue'})
-
-console.log(randomColor({ hue: userColor }))
-
-So, user needs to put in a hex code to get a requested color
-*/
+if (userColor && !luminosity) {
+  const finalColor = userColor;
+  hexCode = toHex(finalColor);
+  color = chalk.hex(hexCode);
+  drawRectangle();
+} else if (userColor && luminosity) {
+  const finalColor = luminosity + userColor;
+  // console.log(finalColor);
+  hexCode = toHex(finalColor);
+  color = chalk.hex(hexCode);
+  drawRectangle();
+} else {
+  drawRectangle();
+}
