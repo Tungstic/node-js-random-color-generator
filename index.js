@@ -36,7 +36,7 @@ if (userColor === 'red') {
   color = chalk.hex(hexCode);
   drawRectangle();
 }
-if (userColor === 'blue dark') {
+if (userColor === 'blue' && luminosity === 'dark') {
   hexCode = '#023e8c';
   color = chalk.hex(hexCode);
   drawRectangle();
