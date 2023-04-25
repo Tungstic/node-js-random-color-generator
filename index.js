@@ -8,10 +8,17 @@ let color = chalk.hex(hexCode);
 
 // Allow user request a color with a word
 const userColor = process.argv[2];
-//console.log(toHex(userColor));
+const luminosity = process.argv[3];
 
-if (userColor) {
-  hexCode = toHex(userColor);
+if (userColor && !luminosity) {
+  const finalColor = userColor;
+  hexCode = toHex(finalColor);
+  color = chalk.hex(hexCode);
+  drawRectangle();
+} else if (userColor && luminosity) {
+  const finalColor = luminosity + userColor;
+  // console.log(finalColor);
+  hexCode = toHex(finalColor);
   color = chalk.hex(hexCode);
   drawRectangle();
 } else {
