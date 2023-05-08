@@ -1,59 +1,43 @@
 import chalk from 'chalk';
-import toHex from 'colornames';
 import randomColor from 'randomcolor';
 
-// Get random hex code and its color
-let hexCode = randomColor();
-let color = chalk.hex(hexCode);
-
-// Allow user request a color with a word
+// Allow user to request hue and luminosity with words
 const userColor = process.argv[2];
 const luminosity = process.argv[3];
 
-// Hardcode rectangle because neither canvas nor gm library helped me draw it
-function topAndBottom() {
-  const times = 3;
-  for (let i = 0; i < times; i++) {
-    console.log(color('###############################'));
-  }
-}
+// Set up hexCode variable - will be randomized or changed by the user
+let hexCode;
 
-function middle() {
-  console.log(color('#####                     #####'));
-  console.log(color('#####       ' + color(hexCode) + '       #####'));
-  console.log(color('#####                     #####'));
-}
+// Adjust hexCode depending on hue/luminosity set by user - if available
 
-function drawRectangle() {
-  topAndBottom();
-  middle();
-  topAndBottom();
-}
-
-// Tests failed because my library has different hex codes for "red" and "blue dark"
-if (userColor === 'red') {
-  hexCode = '#b72d42';
-  color = chalk.hex(hexCode);
-  drawRectangle();
-}
-if (userColor === 'blue' && luminosity === 'dark') {
-  hexCode = '#023e8c';
-  color = chalk.hex(hexCode);
-  drawRectangle();
-}
-
-// Code assuming that the hex codes and color names from the libraries are correct
-if (userColor && !luminosity) {
-  const finalColor = userColor;
-  hexCode = toHex(finalColor);
-  color = chalk.hex(hexCode);
-  drawRectangle();
-} else if (userColor && luminosity) {
-  const finalColor = luminosity + userColor;
-  // console.log(finalColor);
-  hexCode = toHex(finalColor);
-  color = chalk.hex(hexCode);
-  drawRectangle();
+if (userColor && luminosity) {
+  hexCode = randomColor({
+    luminosity: luminosity,
+    hue: userColor,
+  });
+} else if (userColor && !luminosity) {
+  hexCode = randomColor({
+    luminosity: 'random',
+    hue: userColor,
+  });
 } else {
-  drawRectangle();
+  hexCode = randomColor({
+    luminosity: 'random',
+    hue: 'random',
+  });
 }
+
+// Give the chosen hexCode its respective color
+const color = chalk.hex(hexCode);
+
+// Print a rectangle of hashes with a corresponding hex code inside
+
+console.log(color('###############################'));
+console.log(color('###############################'));
+console.log(color('###############################'));
+console.log(color('#####                     #####'));
+console.log(color(`#####       ${color(hexCode)}       #####`));
+console.log(color('#####                     #####'));
+console.log(color('###############################'));
+console.log(color('###############################'));
+console.log(color('###############################'));
